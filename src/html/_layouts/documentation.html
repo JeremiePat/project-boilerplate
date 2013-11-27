@@ -1,0 +1,17 @@
+{{#prettify}}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{#if title}}{{title}}{{else}}Documentation{{/if}}</title>
+
+  <link rel="stylesheet" href="{{assets}}css/docs.css">
+  <link rel="stylesheet" href="http://yandex.st/highlightjs/7.5/styles/solarized_light.min.css">
+</head>
+<body>
+{{#markdown}}
+  {{> body}}
+{{/markdown}}
+</body>
+</html>
+{{/prettify}}
