@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     // Read meta-data from the package.json file
     pkg: grunt.file.readJSON('package.json'),
 
-    // Define the clean task
+    // Define the "clean" tasks
     clean: {
       // clean:scripts clean scripts from build
       scripts : {
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
       }
     },
 
-    // Define the copy task
+    // Define the "copy" tasks
     copy: {
       // copy:scripts roughly copy js source into the build directory
       scripts : {
@@ -42,20 +42,32 @@ module.exports = function(grunt) {
         ]
       },
 
-      // copy:css copy assets for CSS
+      // copy:html copy assets for HTML (SVG images)
+      html : {
+        files: [
+          {
+            expand: true,
+            cwd : 'src/html/',
+            src : ['**/*.svg'],
+            dest: 'build/'
+          }
+        ]
+      },
+
+      // copy:css copy assets for CSS (fonts and SVG images)
       css : {
         files: [
           {
             expand: true,
             cwd : 'src/sass/',
-            src : ['{img,fonts}/**/*'],
+            src : ['fonts/**/*','img/**/*.svg'],
             dest: 'build/css'
           }
         ]
       }
     },
 
-    // Define the concat task
+    // Define the "concat" tasks
     concat: {
       scripts: {
         src : ['src/js/plugins/**/*.js'],
@@ -63,7 +75,7 @@ module.exports = function(grunt) {
       }
     },
 
-    // Define the compass task
+    // Define the "compass" tasks
     compass: {
       dev: {
         options: {
@@ -73,6 +85,7 @@ module.exports = function(grunt) {
       }
     },
 
+    // Define the "assemble" tasks
     assemble: {
       options: {
         prettify: {
@@ -109,6 +122,34 @@ module.exports = function(grunt) {
         {
           src : ['readme.md'],
           dest: 'build/docs/readme.html'
+        }]
+      }
+    },
+
+    imagemin: {
+      html: {
+        options: {
+          optimizationLevel: 2,
+          progressive: true,
+          interlaced: true
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/html/img/',
+          src: ['**/*.{jpg,png,gif}'],
+          dest: 'build/img/'
+        }]
+      },
+      css: {
+        options: {
+          optimizationLevel: 9,
+          pngquant: true
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/sass/img/',
+          src: ['**/*.{jpg,png,gif}'],
+          dest: 'build/css/img/'
         }]
       }
     },
@@ -161,12 +202,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Define some extra task for command line usage
-  grunt.registerTask('html', ['clean:html','assemble:html']);
+  grunt.registerTask('html', ['clean:html','assemble:html','copy:html','imagemin:html']);
   grunt.registerTask('docs', ['clean:docs','assemble:docs']);
-  grunt.registerTask('css', ['clean:css','compass:dev','copy:css']);
+  grunt.registerTask('css', ['clean:css','compass:dev','copy:css','imagemin:css']);
   grunt.registerTask('scripts', ['clean:scripts','copy:scripts','concat:scripts']);
   grunt.registerTask('build', ['css','scripts','html','docs']);
   grunt.registerTask('live', ['connect:basic','watch']);
