@@ -1,7 +1,6 @@
-
 # Example de projet statique
 
-Cette documentation explique comment automatisé les taches répétitives d'un projet pour vous laisser vous concentrer sur votre travail.
+Cette documentation explique comment automatiser les taches répétitives d'un projet pour vous laisser vous concentrer sur votre travail.
 
 
 ## Préparer l'environnement
