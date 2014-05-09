@@ -264,11 +264,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Define some extra task for command line usage
-  grunt.registerTask('html', ['clean:html','assemble:html','copy:html','imagemin:html']);
-  grunt.registerTask('docs', ['clean:docs','assemble:docs']);
-  grunt.registerTask('css', ['clean:css','compass:dev','copy:css','imagemin:css']);
-  grunt.registerTask('scripts', ['clean:scripts','copy:scripts','concat:scripts']);
-  grunt.registerTask('build', ['css','scripts','html','docs']);
   grunt.registerTask('live', ['connect:basic','watch']);
 
   // Handle watch compiling action only on changed files when possible
