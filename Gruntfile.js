@@ -191,25 +191,47 @@ module.exports = function(grunt) {
     },
 
     // Define the "watch" task
+    // This is only used to update the dev build
+    // To update the prod build, run `$ grunt build` manualy
     watch: {
       options: {
-        livereload: true,
+        spawn: false
       },
       html : {
-        files: ['src/html/**/*.html','!src/html/_layouts/documentation.html'],
-        tasks: ['html']
+        files: [
+          'src/tpl/index.html',
+          'src/tpl/pages/**/*.html',
+          'src/tpl/_inc/**/*.html',
+          'src/tpl/_layouts/default.html'
+        ],
+        tasks: ['assemble:dev']
       },
       css : {
         files: 'src/sass/**/*.scss',
-        tasks: ['css']
+        tasks: ['compass:dev']
       },
       scripts : {
-        files: 'src/js/**/*.js',
-        tasks: ['scripts']
+        files: 'src/scripts/**/*.js',
+        tasks: ['copy:scripts']
+      },
+      img : {
+        files: 'src/assets/img/**/*.{svg,jpg,png,gif}',
+        tasks: ['copy:img']
+      },
+      fonts : {
+        files: 'src/assets/fonts/**/*',
+        tasks: ['copy:fonts']
       },
       docs: {
-        files: ['readme.md','src/html/_docs/**/*.md','src/html/_layouts/documentation.html'],
-        tasks: ['docs']
+        files: ['readme.md','src/tpl/_docs/**/*.md','src/tpl/_layouts/documentation.html'],
+        tasks: ['assemble:doc']
+      },
+      // Perform livereload only when a build file has changed
+      livereload: {
+        options: {
+          livereload: true
+        },
+        files: ['build/dev/**/*'],
       }
     }
   });
@@ -231,4 +253,30 @@ module.exports = function(grunt) {
   grunt.registerTask('scripts', ['clean:scripts','copy:scripts','concat:scripts']);
   grunt.registerTask('build', ['css','scripts','html','docs']);
   grunt.registerTask('live', ['connect:basic','watch']);
+
+  // Handle watch compiling action only on changed files when possible
+  grunt.event.on('watch', function(action, filepath, target) {
+    
+    // Assemble only the relevant html files
+    if (target === 'html' &&
+        filepath.indexOf('src/tpl/index') === 0 &&
+        filepath.indexOf('src/tpl/pages') === 0) {
+      grunt.config('assemble.dev.src', filepath.replace('src/tpl/',''));
+    }
+
+    // Copy only the script that has changed
+    if (target === 'scripts') {
+      grunt.config('copy.scripts.src', filepath.replace('src/scripts/',''));
+    }
+
+    // Copy only the images that has changed
+    else if (target === 'img'){
+      grunt.config('copy.img.src', filepath.replace('src/assets/img/',''));
+    }
+
+    // Copy only the fonts that has changed
+    else if (target === 'fonts'){
+      grunt.config('copy.fonts.src', filepath.replace('src/assets/fonts/',''));
+    }
+  });
 };
