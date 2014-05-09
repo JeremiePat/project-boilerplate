@@ -155,9 +155,9 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: 'src/sass/img/',
+          cwd: 'src/assets/img/',
           src: ['**/*.{jpg,png,gif}'],
-          dest: 'build/css/img/'
+          dest: 'build/prod/img/'
         }]
       }
     },
