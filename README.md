@@ -41,12 +41,14 @@ $ bundle install
 
 Ce projet automatise les taches grace à [grunt](http://gruntjs.com) et utilise les modules NodeJS suivant :
 
-* grunt 0.4.2
+* grunt 0.4.4
+* grunt-bower 0.31.1
 * grunt-contrib-clean 0.5.0
 * grunt-contrib-compass 0.6.0
-* grunt-contrib-concat 0.3.0
 * grunt-contrib-connect 0.5.0
 * grunt-contrib-copy 0.4.1
+* grunt-contrib-imagemin 0.4.0
+* grunt-contrib-uglify: 0.4.0
 * grunt-contrib-watch 0.5.3
 * assemble 0.4.28
 * lodash 2.4.0
@@ -71,9 +73,11 @@ Pour produire une version statique du projet, utilisez la commande suivante:
 $ grunt build
 ```
 
+Cela va produire une version de "développement" et une version de "production". La première est celle qui sera utlisée pendant votre travail; la seconde sera celle qui sera publiée en production (avec les outils de developpement en moins et des optimisation supplémentaire sur les ressources qui peuvent l'être)
+
 **NOTE :** _Il est recommandé d'executer cette commande la première fois que vous récupérez le projet et à chaque fois que vous mettez le projet à jour._
 
-Pour vous simplifier la vie, utilisez l'observateur pour qu'à chacun de vos changements ceux-ci soient automatiquement pris en compte dans la version statique du projet.
+Pour vous simplifier la vie, utilisez l'observateur pour qu'à chacun de vos changements ceux-ci soient automatiquement pris en compte dans la version statique de developpement du projet.
 
 Pour lancer l'observateur, utilisez la commande suivante :
 
@@ -91,31 +95,14 @@ $ grunt live
 
 **NOTE :** _Le serveur lancé de cette manière utilise livereload : A chaque fois que l'observateur verra un changement, le serveur mettra la page à jour._
 
-Pour lancer le serveur seul, utilisez la commande suivante:
+Pour lancer le serveur seul sur la version de développement, utilisez la commande suivante:
 
 ```bash
-$ grunt connect:server
+$ grunt connect:dev
 ```
 
-### Commandes individuelles
-
-Si vous ne voulez pas utiliser l'observateur, vous pouvez utiliser les commandes suivantes en fonctions de vos besoins:
+Pour lancer le serveur seul sur la version de production, utilisez la commande suivante:
 
 ```bash
-# Construire la structure HTML du projet
-$ grunt html
+$ grunt connect:prod
 ```
-```bash
-# Construire la documentation du projet
-$ grunt docs
-```
-```bash
-# Compiler les fichiers SASS et copie les assets (img/fonts)
-$ grunt css
-```
-```bash
-# Mettre les scripts à jours
-$ grunt scripts
-```
-
-**NOTE :** _Chacune de ces commandes peut être utilisée comme un observateur spécifique. Ainsi, par exemple, `watch:docs` mettra à jour la documentation automatiquement lorsque vous l'éditez, et seulement la documentation._
