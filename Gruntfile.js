@@ -87,11 +87,19 @@ module.exports = function(grunt) {
       }
     },
 
-    // Define the "compass" tasks
+    // Define the "compass" tasks to compile scss files
     compass: {
       dev: {
         options: {
+          config: 'config.dev.rb',
+          bundleExec: true,
+          force: true
+        }
+      },
+      prod: {
+        options: {
           config: 'config.rb',
+          bundleExec: true,
           force: true
         }
       }
