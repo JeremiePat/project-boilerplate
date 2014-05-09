@@ -71,7 +71,18 @@ module.exports = function(grunt) {
       }
     },
 
+    // Define the "bower" tasks
+    bower: {
+      // Manages to copy only main files from bower to be used.
+      copy : {
+        dest: 'src/scripts',
+        options: {
+          packageSpecific: {
+            hashgrid : {
+              dest: 'src/scripts/_dev'
+            }
           }
+        }
       }
     },
 
@@ -255,6 +266,7 @@ module.exports = function(grunt) {
 
   // Load relevant grunt task (available as NPM plug-in)
   grunt.loadNpmTasks('assemble' );
+  grunt.loadNpmTasks('grunt-bower');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-connect');

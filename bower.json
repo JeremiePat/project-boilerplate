@@ -1,0 +1,10 @@
+{
+  "name": "project-boilerplate",
+  "version": "0.0.2",
+  "dependencies": {
+    "jquery": "~2.1.1"
+  },
+  "devDependencies": {
+    "hashgrid": "*"
+  }
+}
