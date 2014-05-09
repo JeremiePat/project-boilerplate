@@ -57,11 +57,15 @@ module.exports = function(grunt) {
       }
     },
 
-    // Define the "concat" tasks
-    concat: {
-      scripts: {
-        src : ['src/js/plugins/**/*.js'],
-        dest: 'build/js/jquery.plugins.js'
+    // Define the "uglify" tasks
+    uglify: {
+      // Allows to minify JS files for the production build
+      prod: {
+        options:{
+          mangle: false // We do not change the variable names
+        },
+        src : ['src/scripts/**/*.js','!src/scripts/_dev/**/*.js'],
+        dest: 'build/prod/js/scripts.js'
       }
     },
 
@@ -189,10 +193,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('assemble' );
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Define some extra task for command line usage
