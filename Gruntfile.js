@@ -146,21 +146,9 @@ module.exports = function(grunt) {
       }
     },
 
+    // Define the "imagemin" tasks to optimize image for production
     imagemin: {
-      html: {
-        options: {
-          optimizationLevel: 2,
-          progressive: true,
-          interlaced: true
-        },
-        files: [{
-          expand: true,
-          cwd: 'src/html/img/',
-          src: ['**/*.{jpg,png,gif}'],
-          dest: 'build/img/'
-        }]
-      },
-      css: {
+      prod: {
         options: {
           optimizationLevel: 9,
           pngquant: true
