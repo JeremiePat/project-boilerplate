@@ -109,40 +109,57 @@ module.exports = function(grunt) {
     assemble: {
       options: {
         prettify: {
-          indent: 2,
+          indent  : 2,
           condense: true,
           newlines: true
         },
-        assets: 'build/',
-        helpers: 'src/html/_helpers/*.js',
-        partials: 'src/html/_inc/*.html',
-        layoutdir: 'src/html/_layouts',
-        layout: 'default.html'
+        helpers  : 'src/tpl/_helpers/*.js',
+        partials : 'src/tpl/_inc/*.html',
+        data     : 'src/tpl/_data/*.json',
+        layoutdir: 'src/tpl/_layouts',
+          layout : 'default.html'
       },
 
-      html: {
-        files:[{
-          expand: true,
-          cwd:'src/html/',
-          src:['**/*.html','!_**/*.html'],
-          dest: 'build/'
-        }]
+      dev: {
+        options: {
+          assets : 'build/dev/',
+          data   :['src/tpl/_data/*.json','src/tpl/_data/dev/*.json']
+        },
+        expand: true,
+        cwd   : 'src/tpl/',
+        src   :['index.html','pages/**/*.html'],
+        dest  : 'build/dev'
+      },
+
+      prod: {
+        options: {
+          assets : 'build/prod/',
+          data   :['src/tpl/_data/*.json','src/tpl/_data/prod/*.json']
+        },
+        expand: true,
+        cwd   : 'src/tpl/',
+        src   :['index.html','pages/**/*.html'],
+        dest  : 'build/prod'
       },
 
       docs: {
         options: {
+          assets: 'build/dev/',
           layout: 'documentation.html'
         },
-        files:[{
-          expand: true,
-          cwd : 'src/html/_docs/',
-          src : ['**/*.md'],
-          dest: 'build/docs/'
+        expand: true,
+        cwd   : 'src/tpl/_docs/',
+        src   : ['**/*.md'],
+        dest  : 'build/dev/docs'
+      },
+
+      readme: {
+        options: {
+          assets: 'build/dev/',
+          layout: 'documentation.html'
         },
-        {
-          src : ['readme.md'],
-          dest: 'build/docs/readme.html'
-        }]
+        src : ['readme.md'],
+        dest: 'build/dev/readme.html'
       }
     },
 
