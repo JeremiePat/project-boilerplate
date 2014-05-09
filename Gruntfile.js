@@ -20,40 +20,58 @@ module.exports = function(grunt) {
 
     // Define the "copy" tasks
     copy: {
-      // copy:scripts roughly copy js source into the build directory
+      // copy:scripts roughly copy js source into the build/dev directory
       scripts : {
+        expand: true,
+        cwd : 'src/scripts/',
+        src : ['**/*.js'],
+        dest: 'build/dev/js'
+      },
+
+      // copy:img copy images assets into the build/dev directory
+      img : {
+        expand: true,
+        cwd : 'src/assets/img',
+        src : ['**/*.{jpg,png,gif,svg}'],
+        dest: 'build/dev/img'
+      },
+
+      // copy:fonts copy fonts assets into the build/dev directory
+      fonts : {
+        expand: true,
+        cwd : 'src/assets/fonts',
+        src : ['**/*'],
+        dest: 'build/dev/fonts'
+      },
+
+      // copy:prod copy elements that require to be push "as is" in production
+      prod : {
         files : [
-          {
+          { // SCRIPTS
             expand: true,
-            cwd : 'src/js/',
+            cwd : 'src/scripts/',
+            // Plugins will be concatenated and uglified
             src : ['**/*.js','!plugins/**/*.js'],
-            dest: 'build/js/'
-          }
-        ]
-      },
-
-      // copy:html copy assets for HTML (SVG images)
-      html : {
-        files: [
-          {
+            dest: 'build/prod/js'
+          },
+          { // IMAGES
             expand: true,
-            cwd : 'src/html/',
+            cwd : 'src/assets/img',
+            // Binary images will be optimized
             src : ['**/*.svg'],
-            dest: 'build/'
-          }
-        ]
-      },
-
-      // copy:css copy assets for CSS (fonts and SVG images)
-      css : {
-        files: [
-          {
+            dest: 'build/prod/img'
+          },
+          { // FONTS
             expand: true,
-            cwd : 'src/sass/',
-            src : ['fonts/**/*','img/**/*.svg'],
-            dest: 'build/css'
+            cwd : 'src/assets/fonts',
+            src : ['**/*'],
+            dest: 'build/prod/fonts'
           }
         ]
+      }
+    },
+
+          }
       }
     },
 
