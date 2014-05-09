@@ -1,5 +1,14 @@
 <footer>Code disponible sur <a href="https://github.com/JeremiePat/project-boilerplate">GitHub</a></footer>
 
+<!-- SCRIPTS -->
+{{#if ENV.PROD}}
+<script src="{{assets}}js/scripts.js"></script>
+{{else}}
 <script src="{{assets}}js/jquery.js"></script>
-<script src="{{assets}}js/jquery.plugins.js"></script>
 <script src="{{assets}}js/main.js"></script>
+
+<script src="{{assets}}js/_dev/hashgrid.js"></script>
+<script type="text/javascript">
+var grid = new hashgrid();
+</script>
+{{/if}}

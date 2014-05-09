@@ -1,0 +1,6 @@
+{
+  "ENV": {
+    "DEV" : false,
+    "PROD": true
+  }
+}
