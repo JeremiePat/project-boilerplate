@@ -164,16 +164,27 @@ module.exports = function(grunt) {
 
     // define the "connect" task
     connect: {
-      options: {
-        base: 'build'
-      },
+      // Provide a live static web server to use 
+      // with the "watch" tasks for development
       basic : {
         options: {
-          livereload: true,
+          base: 'build/dev',
+          livereload: true
         }
       },
-      server: {
+
+      // Provide a static web server to use standalone for development
+      dev: {
         options : {
+          base: 'build/dev',
+          keepalive : true
+        }
+      },
+
+      // Provide a static web server to use standalone for production
+      prod: {
+        options : {
+          base: 'build/prod',
           keepalive : true
         }
       }
