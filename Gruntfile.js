@@ -10,21 +10,11 @@ module.exports = function(grunt) {
 
     // Define the "clean" tasks
     clean: {
-      // clean:scripts clean scripts from build
-      scripts : {
-        src : ['build/js']
+      dev : {
+        src : ['build/dev']
       },
-      // clean:css clean scripts from build
-      css : {
-        src : ['build/css']
-      },
-      // clean:html clean everything that is not docs, css or js
-      html : {
-        src : ['build/**/*','!build/{docs,js,css}**','!build/{docs,js,css}**/**/*']
-      },
-      // clean:css clean scripts from build
-      docs : {
-        src : ['build/docs']
+      prod : {
+        src : ['build/prod']
       }
     },
 
