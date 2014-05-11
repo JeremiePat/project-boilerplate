@@ -138,7 +138,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         cwd   : 'src/tpl/',
-        src   :['index.html','pages/**/*.html'],
+        src   :['pages/**/*.html'],
         dest  : 'build/dev'
       },
 
