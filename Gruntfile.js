@@ -252,7 +252,7 @@ module.exports = function(grunt) {
       },
       docs: {
         files: ['readme.md','src/tpl/_docs/**/*.md','src/tpl/_layouts/documentation.html'],
-        tasks: ['assemble:doc']
+        tasks: ['assemble:docs']
       },
       // Perform livereload only when a build file has changed
       livereload: {
