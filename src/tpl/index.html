@@ -1,7 +1,11 @@
 ---
 title: Index du projet
+layout: documentation.html
 ---
-<h1>Exemple de projet</h1>
-<p>Cette page est un assemblage de fragement HTML réalisé grace au module <a href="http://assemble.io">Assemble</a></p>
+<h1>Pages du projet</h1>
 
-<p>Il est également utilisé pour généré <a href="/docs/">la documentation du projet</a>.</p>
+<ul>
+{{#eachfile '/src/tpl/pages'}}
+  <li><a href="pages/{{filename}}">{{filename}}</a></li>
+{{/eachfile}}
+</ul>
