@@ -9,9 +9,29 @@
   <link rel="stylesheet" href="http://yandex.st/highlightjs/7.5/styles/solarized_light.min.css">
 </head>
 <body>
+{{#unless ENV.PROD}}
+  <nav>
+    <a href="#toc">Navigation</a>
+    <a href="#main">Content</a>
+  </nav>
+
+  <section id="toc">
+    <h1><a href="/docs">Documentation</a></h1>
+
+    <ul>
+    {{#eachfile '/src/tpl/_docs'}}
+      <li><a href="/docs/{{subname}}.html">{{name}}</a></li>
+    {{/eachfile}}
+    </ul>
+  </section>
+{{/unless}}
+
+  <section id="main">
 {{#markdown}}
   {{> body}}
 {{/markdown}}
+  <section>
+
 </body>
 </html>
 {{/prettify}}
